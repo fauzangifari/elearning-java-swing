@@ -2,7 +2,10 @@ package model;
 
 import javax.swing.*;
 import java.sql.SQLException;
-
+/**
+ *
+ * @author fauza
+ */
 public class Matakuliah {
     private String id;
     private String name;
@@ -50,4 +53,3 @@ public class Matakuliah {
 
 
 }
-

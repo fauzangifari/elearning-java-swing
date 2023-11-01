@@ -1,5 +1,8 @@
 package model;
-
+/**
+ *
+ * @author fauza
+ */
 public abstract class User {
     private final String idUser;
     private final String name;

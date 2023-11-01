@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.LoginController;
 import controller.MatakuliahController;
 import controller.UserSession;
 import model.Database;
@@ -28,7 +29,14 @@ public class MenuMahasiswa extends javax.swing.JFrame {
     public MenuMahasiswa() {
         initComponents();
         Database.connect();
+        labelUser();
 
+    }
+    
+    public void labelUser(){
+        LoginController loginController = LoginController.getInstance();
+        String name = UserSession.getInstance().getUserName();
+        JOptionPane.showMessageDialog(null, "Welcome back " + name);
     }
 
     public void table() {
@@ -188,8 +196,9 @@ public class MenuMahasiswa extends javax.swing.JFrame {
         idTugasField.setEditable(false);
         idTugasField.setFocusable(false);
 
+        jLabel4.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jLabel4.setText("Keterangan Tugas");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 140, -1));
 
         kumpulButton.setText("Kumpul");
         kumpulButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -327,6 +336,10 @@ public class MenuMahasiswa extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

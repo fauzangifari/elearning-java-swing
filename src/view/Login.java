@@ -6,6 +6,7 @@ package view;
 
 import controller.LoginController;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -97,8 +98,7 @@ public class Login extends javax.swing.JFrame {
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {
         String id = idBox.getText();
         String password = passwordField.getText();
-
-        LoginController.getInstance().loginButton(id, password);
+        LoginController.loginButton(id, password);
         this.dispose();
     }
                                         
@@ -130,6 +130,8 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -139,7 +141,6 @@ public class Login extends javax.swing.JFrame {
                 login.pack();
                 login.setLocationRelativeTo(null);
                 login.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
-
             }
         });
     }

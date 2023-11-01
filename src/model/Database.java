@@ -10,7 +10,6 @@ import java.sql.*;
  *
  * @author fauza
  */
-
 public class Database {
     public static Connection connection = null;
 

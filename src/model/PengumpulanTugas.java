@@ -2,7 +2,10 @@ package model;
 
 import javax.swing.*;
 import java.sql.SQLException;
-
+/**
+ *
+ * @author fauza
+ */
 public class PengumpulanTugas {
     private final String idPengumpulan;
     private final String idMahasiswa;

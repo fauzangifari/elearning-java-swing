@@ -1,7 +1,10 @@
 package model;
 
 import javax.swing.*;
-
+/**
+ *
+ * @author fauza
+ */
 public class Dosen extends User{
     
     private final String role = "Dosen";
@@ -34,18 +37,19 @@ public class Dosen extends User{
         return false;
     }
 
-    public static final boolean getIdDosen(String id) {
+    public static final String getName(String id) {
         try {
-            String query = "SELECT * FROM dosen WHERE nip = ?";
+            String query = "SELECT nama_dosen FROM dosen WHERE nip = ?";
             Database.preparedStatement = Database.connection.prepareStatement(query);
             Database.preparedStatement.setString(1, id);
             Database.resultSet = Database.preparedStatement.executeQuery();
 
-            return Database.resultSet.next();
+            if (Database.resultSet.next()) {
+                return Database.resultSet.getString("nama_dosen");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Login gagal! " + e.getMessage());
         }
-        return false;
+        return null;
     }
-
 }

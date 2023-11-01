@@ -3,7 +3,10 @@ package model;
 
 import javax.swing.*;
 import java.sql.SQLException;
-
+/**
+ *
+ * @author fauza
+ */
 public class Penugasan {
     private final String idPenugasan;
     private String deadline;
@@ -37,21 +40,6 @@ public class Penugasan {
     
     public final String getKodeMataKuliah(){
         return this.kodeMatakuliah;
-    }
-
-    public final String setDeadline(String deadline){
-        this.deadline = deadline;
-        return deadline;
-    }
-
-    public final String setDeskripsi(String deskripsi){
-        this.deskripsi = deskripsi;
-        return deskripsi;
-    }
-
-    public final String setTitle(String title){
-        this.title = title;
-        return title;
     }
 
     public final void createPenugasan() {
@@ -96,9 +84,9 @@ public class Penugasan {
         try {
             String query = "UPDATE penugasan SET deadline = ?, title = ?, deskripsi = ? WHERE id_tugas = ?";
             Database.preparedStatement = Database.connection.prepareStatement(query);
-            Database.preparedStatement.setString(1, this.setDeadline(this.deadline));
-            Database.preparedStatement.setString(2, this.setTitle(this.title));
-            Database.preparedStatement.setString(3, this.setDeskripsi(this.deskripsi));
+            Database.preparedStatement.setString(1, this.getDeadline());
+            Database.preparedStatement.setString(2, this.getTitle());
+            Database.preparedStatement.setString(3, this.getDeskripsi());
             Database.preparedStatement.setString(4, this.getIdPenugasan());
 
             int rowsAffected = Database.preparedStatement.executeUpdate();

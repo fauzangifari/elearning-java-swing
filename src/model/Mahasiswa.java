@@ -3,7 +3,10 @@ package model;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
 import javax.swing.*;
-
+/**
+ *
+ * @author fauza
+ */
 public class Mahasiswa extends User{
 
     private final String role = "Mahasiswa";
@@ -29,8 +32,24 @@ public class Mahasiswa extends User{
                     return false;
                 }
             } catch (HeadlessException | SQLException e) {
-                JOptionPane.showMessageDialog(null, "Login gagal! " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Login gagal! ");
                 return false;
             }
+        }
+        
+        public static final String getName(String id) {
+            try {
+                String query = "SELECT nama_mahasiswa FROM mahasiswa WHERE nim = ?";
+                Database.preparedStatement = Database.connection.prepareStatement(query);
+                Database.preparedStatement.setString(1, id);
+                Database.resultSet = Database.preparedStatement.executeQuery();
+
+                if (Database.resultSet.next()) {
+                    return Database.resultSet.getString("nama_mahasiswa");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Terjadi Kesalahan!");
+            }
+            return null;
         }
 }
