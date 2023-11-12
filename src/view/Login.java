@@ -5,6 +5,7 @@
 package view;
 
 import controller.LoginController;
+import controller.UserSession;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,12 +14,17 @@ import java.awt.*;
  *
  * @author fauza
  */
-public class Login extends javax.swing.JFrame {
+public final class Login extends javax.swing.JFrame {
 
 
     public Login() {
         initComponents();
     }
+    
+//    public void labelUser(){
+//        String name = UserSession.getInstance().getUserName();
+//        JOptionPane.showMessageDialog(null, "Welcome back " + name);
+//    }
 
     public static Login getInstance() {
         return new Login();

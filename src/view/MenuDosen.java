@@ -18,12 +18,6 @@ public final class MenuDosen extends javax.swing.JFrame {
      */
     public MenuDosen() {
         initComponents();
-        labelUser();
-    }
-
-    public void labelUser(){
-        String name = UserSession.getInstance().getUserName();
-        JOptionPane.showMessageDialog(null, "Welcome back " + name);
     }
     
     @SuppressWarnings("unchecked")
@@ -31,7 +25,11 @@ public final class MenuDosen extends javax.swing.JFrame {
     private void initComponents() {
 
         backMenuButton = new javax.swing.JLabel();
+        pengumpulanTugasButton = new javax.swing.JLabel();
+        penugasanButton = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -45,9 +43,33 @@ public final class MenuDosen extends javax.swing.JFrame {
         });
         getContentPane().add(backMenuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/dashboardForm.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, -1));
+        pengumpulanTugasButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/assignmentButton.png"))); // NOI18N
+        pengumpulanTugasButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pengumpulanTugasButtonMouseClicked(evt);
+            }
+        });
+        getContentPane().add(pengumpulanTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, -1, -1));
+
+        penugasanButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/examButton.png"))); // NOI18N
+        penugasanButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                penugasanButtonMouseClicked(evt);
+            }
+        });
+        getContentPane().add(penugasanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel2.setText("Buat Penugasan");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
+        jLabel1.setText("Lihat Tugas Mahasiswa");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 440, -1, -1));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/dashboardForm.png"))); // NOI18N
+        background.setText("jLabel1");
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -61,6 +83,24 @@ public final class MenuDosen extends javax.swing.JFrame {
         UserSession.getInstance().clearSession();
         this.dispose();
     }//GEN-LAST:event_backMenuButtonMouseClicked
+
+    private void penugasanButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_penugasanButtonMouseClicked
+        Penugasan penugasan = new Penugasan();
+        penugasan.setVisible(true);
+        penugasan.pack();
+        penugasan.setLocationRelativeTo(null);
+        penugasan.setDefaultCloseOperation(Penugasan.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_penugasanButtonMouseClicked
+
+    private void pengumpulanTugasButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pengumpulanTugasButtonMouseClicked
+        PengumpulanTugas pengumpulanTugas = new PengumpulanTugas();
+        pengumpulanTugas.setVisible(true);
+        pengumpulanTugas.pack();
+        pengumpulanTugas.setLocationRelativeTo(null);
+        pengumpulanTugas.setDefaultCloseOperation(PengumpulanTugas.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_pengumpulanTugasButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -99,6 +139,10 @@ public final class MenuDosen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backMenuButton;
+    private javax.swing.JLabel background;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel pengumpulanTugasButton;
+    private javax.swing.JLabel penugasanButton;
     // End of variables declaration//GEN-END:variables
 }

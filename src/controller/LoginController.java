@@ -38,6 +38,8 @@ public class LoginController {
                             dashboardMahasiswa.pack();
                             dashboardMahasiswa.setLocationRelativeTo(null);
                             dashboardMahasiswa.setDefaultCloseOperation(MenuMahasiswa.EXIT_ON_CLOSE);
+                            String name = UserSession.getInstance().getUserName();
+                            JOptionPane.showMessageDialog(null, "Welcome back " + name);
                         } else {
                             JOptionPane.showMessageDialog(null, "Login gagal!");
                         }
@@ -46,11 +48,13 @@ public class LoginController {
                         if (Dosen.loginDosen(id, password)) {
                             UserSession.getInstance().setUserId(id);
                             UserSession.getInstance().setUserName(Dosen.getName(id));
-                            Penugasan dashboardDosen = new Penugasan();
+                            MenuDosen dashboardDosen = new MenuDosen();
                             dashboardDosen.setVisible(true);
                             dashboardDosen.pack();
                             dashboardDosen.setLocationRelativeTo(null);
-                            dashboardDosen.setDefaultCloseOperation(Penugasan.EXIT_ON_CLOSE);;
+                            dashboardDosen.setDefaultCloseOperation(MenuDosen.EXIT_ON_CLOSE);
+                            String name = UserSession.getInstance().getUserName();
+                            JOptionPane.showMessageDialog(null, "Welcome back " + name);
                         } else {
                             JOptionPane.showMessageDialog(null, "Login gagal!");
                         }

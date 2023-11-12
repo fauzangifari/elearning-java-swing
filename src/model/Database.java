@@ -18,7 +18,7 @@ public class Database {
     protected static ResultSet resultSet;
 
     private final static String DB_HOST = "localhost";
-    private final static String DB_NAME = "elearning_uts";
+    private final static String DB_NAME = "elearning";
     private final static String DB_USERNAME = "root";
     private final static String DB_PASSWORD = "";
 
