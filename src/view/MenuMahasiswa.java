@@ -278,12 +278,12 @@ public class MenuMahasiswa extends javax.swing.JFrame {
 
         String status = "";
 
-        if (hariIni.isAfter(deadline.atStartOfDay())) {
-            status = "Terlambat mengumpul";
-        } else if (hariIni.isEqual(deadline.atStartOfDay())) {
+        if (hariIni.isBefore(deadline.atStartOfDay())) {
             status = "Terkumpul";
+        } else if (hariIni.isAfter(deadline.atStartOfDay().plusDays(1))) {
+            status = "Terlambat mengumpul";
         } else {
-            status = "Belum diperiksa";
+            status = "Terkumpul";
         }
 
         String idTugas = idTugasField.getText();

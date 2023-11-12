@@ -46,11 +46,11 @@ public class LoginController {
                         if (Dosen.loginDosen(id, password)) {
                             UserSession.getInstance().setUserId(id);
                             UserSession.getInstance().setUserName(Dosen.getName(id));
-                            MenuDosen dashboardDosen = new MenuDosen();
+                            Penugasan dashboardDosen = new Penugasan();
                             dashboardDosen.setVisible(true);
                             dashboardDosen.pack();
                             dashboardDosen.setLocationRelativeTo(null);
-                            dashboardDosen.setDefaultCloseOperation(MenuDosen.EXIT_ON_CLOSE);;
+                            dashboardDosen.setDefaultCloseOperation(Penugasan.EXIT_ON_CLOSE);;
                         } else {
                             JOptionPane.showMessageDialog(null, "Login gagal!");
                         }
