@@ -86,14 +86,12 @@ public final class Penugasan extends javax.swing.JFrame {
         createTugasButton = new javax.swing.JButton();
         deleteTugasButton = new javax.swing.JButton();
         updateTugasButton = new javax.swing.JButton();
-        searchTugasButton = new javax.swing.JButton();
         closeButton = new javax.swing.JLabel();
         titleDashboard = new javax.swing.JLabel();
         backMenuButton = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         deskripsiField = new javax.swing.JTextArea();
         dateChooser = new com.toedter.calendar.JDateChooser();
-        searchTugasField = new javax.swing.JTextField();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -168,14 +166,6 @@ public final class Penugasan extends javax.swing.JFrame {
         });
         getContentPane().add(updateTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 110, -1));
 
-        searchTugasButton.setText("Cari Tugas");
-        searchTugasButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTugasButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(searchTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, -1, 30));
-
         closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/closeButton.png"))); // NOI18N
         closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -208,7 +198,6 @@ public final class Penugasan extends javax.swing.JFrame {
         JTextField dateEditor = (JTextField) dateChooser.getDateEditor().getUiComponent();
         dateEditor.setEditable(false);
         dateEditor.setFocusable(false);
-        getContentPane().add(searchTugasField, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 400, 170, 30));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/dashboardForm.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -220,7 +209,7 @@ public final class Penugasan extends javax.swing.JFrame {
         try {
             String kodeMatakuliah = PenugasanController.getIdMatakuliah(matakuliah.getSelectedItem().toString());
             String idPenugasan = "TGS-" + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String deadline = dateFormat.format(dateChooser.getDate());
 
             if (dateChooser.getDate() == null) {
@@ -265,7 +254,23 @@ public final class Penugasan extends javax.swing.JFrame {
     }//GEN-LAST:event_backMenuButtonMouseClicked
 
     private void deleteTugasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTugasButtonActionPerformed
-        
+        try {
+            int row = dataTable.getSelectedRow();
+            if (row >= 0) {
+                DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
+                String idPenugasan = model.getValueAt(row, 0).toString();
+                String kodeMatakuliah = model.getValueAt(row, 4).toString();
+
+                PenugasanController.deleteTugasButton(idPenugasan, null, null, null, kodeMatakuliah);
+                table();
+                model.removeRow(row);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(null, "Pilih tugas yang ingin dihapus!.");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + ex.getMessage());
+        }
     }//GEN-LAST:event_deleteTugasButtonActionPerformed
 
     private void updateTugasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTugasButtonActionPerformed
@@ -287,10 +292,6 @@ public final class Penugasan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "An error occurred: " + ex.getMessage());
         }
     }//GEN-LAST:event_updateTugasButtonActionPerformed
-
-    private void searchTugasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTugasButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchTugasButtonActionPerformed
 
     /*
      * @param args the command line arguments
@@ -475,8 +476,6 @@ public final class Penugasan extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> matakuliah;
     private javax.swing.JLabel matakuliahName;
     private javax.swing.JLabel namaTugasName;
-    private javax.swing.JButton searchTugasButton;
-    private javax.swing.JTextField searchTugasField;
     private javax.swing.JLabel titleDashboard;
     private javax.swing.JButton updateTugasButton;
     // End of variables declaration//GEN-END:variables

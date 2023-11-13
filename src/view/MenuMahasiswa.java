@@ -29,19 +29,10 @@ public class MenuMahasiswa extends javax.swing.JFrame {
     public MenuMahasiswa() {
         initComponents();
         Database.connect();
-        labelUser();
-
-    }
-    
-    public void labelUser(){
-        LoginController loginController = LoginController.getInstance();
-        String name = UserSession.getInstance().getUserName();
-        JOptionPane.showMessageDialog(null, "Welcome back " + name);
     }
     
     void clear(){
         fileTugasField.setText("");
-        
     }
 
     public void table() {
@@ -269,18 +260,19 @@ public class MenuMahasiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_fileUploadActionPerformed
 
     private void kumpulButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kumpulButtonMouseClicked
-        String idPengumpulan = UUID.randomUUID().toString().substring(0, 5);
+        String idPengumpulan = UUID.randomUUID().toString().substring(0, 5).toUpperCase();
         String lampiran = fileTugasField.getText();
         String idMahasiswa = UserSession.getInstance().getUserId();
         LocalDateTime hariIni = LocalDateTime.now();
-        
-        LocalDate deadline = hariIni.toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDeadline = hariIni.format(formatter);
+        LocalDateTime deadline = LocalDateTime.parse(formattedDeadline, formatter);
 
         String status = "";
 
-        if (hariIni.isBefore(deadline.atStartOfDay())) {
+        if (hariIni.isBefore(deadline)) {
             status = "Terkumpul";
-        } else if (hariIni.isAfter(deadline.atStartOfDay().plusDays(1))) {
+        } else if (hariIni.isAfter(deadline.plusDays(1))) {
             status = "Terlambat mengumpul";
         } else {
             status = "Terkumpul";

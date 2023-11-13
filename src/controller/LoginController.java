@@ -64,7 +64,7 @@ public class LoginController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan");
         }
         return false;
     }
