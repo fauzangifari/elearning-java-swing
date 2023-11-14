@@ -29,6 +29,8 @@ public class MenuMahasiswa extends javax.swing.JFrame {
     public MenuMahasiswa() {
         initComponents();
         Database.connect();
+        keteranganField.setLineWrap(true);
+        keteranganField.setWrapStyleWord(true);
     }
     
     void clear(){
@@ -271,11 +273,11 @@ public class MenuMahasiswa extends javax.swing.JFrame {
         String status = "";
 
         if (hariIni.isBefore(deadline)) {
-            status = "Terkumpul";
+            status = "Diserahkan";
         } else if (hariIni.isAfter(deadline.plusDays(1))) {
-            status = "Terlambat mengumpul";
+            status = "Terlambat terlambat";
         } else {
-            status = "Terkumpul";
+            status = "Diserahkan";
         }
 
         String idTugas = idTugasField.getText();

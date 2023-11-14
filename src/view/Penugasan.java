@@ -19,6 +19,7 @@ import java.util.UUID;
 import controller.PenugasanController;
 import controller.LoginController;
 import controller.UserSession;
+import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -36,8 +37,9 @@ public final class Penugasan extends javax.swing.JFrame {
     public Penugasan() {
         initComponents();
         table();
-        Database.connect();
         clear();
+        deskripsiField.setLineWrap(true);
+        deskripsiField.setWrapStyleWord(true);
     }
     
     void clear(){
@@ -69,6 +71,7 @@ public final class Penugasan extends javax.swing.JFrame {
             }
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Koneksi gagal! " + e.getMessage());
+            Database.disconnect();
         }
     }
     @SuppressWarnings("unchecked")
@@ -92,6 +95,9 @@ public final class Penugasan extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         deskripsiField = new javax.swing.JTextArea();
         dateChooser = new com.toedter.calendar.JDateChooser();
+        searchField = new javax.swing.JTextField();
+        searchTugasButton = new javax.swing.JButton();
+        showTugasButton = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -113,8 +119,11 @@ public final class Penugasan extends javax.swing.JFrame {
         deadlineName.setFont(new java.awt.Font("Montserrat", 0, 18)); // NOI18N
         deadlineName.setText("Deadline");
         getContentPane().add(deadlineName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, 30));
+
+        assignment.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         getContentPane().add(assignment, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 280, 30));
 
+        matakuliah.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         matakuliah.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Mata Kuliah", "Basis Data Lanjut", "Dasar Dasar Pengembangan Perangkat Lunak", "Desain dan Manajemen Jaringan Komputer", "Desain Basis Data", "Interaksi Manusia dan Komputer", "Manajemen Layanan IT", "Manajemen Proses Bisnis Pemrograman Berorientasi Objek", "Riset Operasi" }));
         getContentPane().add(matakuliah, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 280, 30));
 
@@ -142,29 +151,32 @@ public final class Penugasan extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 880, 190));
 
+        createTugasButton.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         createTugasButton.setText("Buat Tugas");
         createTugasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createTugasButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(createTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 110, -1));
+        getContentPane().add(createTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 110, 30));
 
+        deleteTugasButton.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         deleteTugasButton.setText("Hapus Tugas");
         deleteTugasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteTugasButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(deleteTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 110, -1));
+        getContentPane().add(deleteTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 110, 30));
 
+        updateTugasButton.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         updateTugasButton.setText("Edit Tugas");
         updateTugasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateTugasButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(updateTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 110, -1));
+        getContentPane().add(updateTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 110, 30));
 
         closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/closeButton.png"))); // NOI18N
         closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -188,7 +200,10 @@ public final class Penugasan extends javax.swing.JFrame {
         getContentPane().add(backMenuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
 
         deskripsiField.setColumns(20);
+        deskripsiField.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         deskripsiField.setRows(5);
+        deskripsiField.setTabSize(5);
+        deskripsiField.setWrapStyleWord(true);
         jScrollPane2.setViewportView(deskripsiField);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 280, 320, -1));
@@ -199,6 +214,43 @@ public final class Penugasan extends javax.swing.JFrame {
         dateEditor.setEditable(false);
         dateEditor.setFocusable(false);
 
+        searchField.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        searchField.setForeground(new java.awt.Color(153, 153, 153));
+        searchField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchField.setText("Masukkan ID Penugasan");
+        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchFieldFocusLost(evt);
+            }
+        });
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, 180, 30));
+
+        searchTugasButton.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        searchTugasButton.setText("Cari Tugas");
+        searchTugasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTugasButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(searchTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 100, 30));
+
+        showTugasButton.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        showTugasButton.setText("Refresh");
+        showTugasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showTugasButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(showTugasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 110, 30));
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/dashboardForm.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -207,8 +259,9 @@ public final class Penugasan extends javax.swing.JFrame {
 
     private void createTugasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createTugasButtonActionPerformed
         try {
+            Database.connect();
             String kodeMatakuliah = PenugasanController.getIdMatakuliah(matakuliah.getSelectedItem().toString());
-            String idPenugasan = "TGS-" + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
+            String idPenugasan = "TG" + UUID.randomUUID().toString().substring(0, 5).toUpperCase();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String deadline = dateFormat.format(dateChooser.getDate());
 
@@ -231,12 +284,14 @@ public final class Penugasan extends javax.swing.JFrame {
                         PenugasanController.createTugasButton(idPenugasan, deadline, titleTugas, deskripsi, kodeMatakuliah);
                         table();
                         clear();
+                        Database.disconnect();
                     }
                 }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "An error occurred: " + ex.getMessage());
+            Database.disconnect();
         }
     }//GEN-LAST:event_createTugasButtonActionPerformed
 
@@ -255,6 +310,7 @@ public final class Penugasan extends javax.swing.JFrame {
 
     private void deleteTugasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTugasButtonActionPerformed
         try {
+            Database.connect();
             int row = dataTable.getSelectedRow();
             if (row >= 0) {
                 DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
@@ -264,34 +320,125 @@ public final class Penugasan extends javax.swing.JFrame {
                 PenugasanController.deleteTugasButton(idPenugasan, null, null, null, kodeMatakuliah);
                 table();
                 model.removeRow(row);
+                Database.disconnect();
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "Pilih tugas yang ingin dihapus!.");
+            Database.disconnect();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "An error occurred: " + ex.getMessage());
+            Database.disconnect();
         }
+        Database.disconnect();
     }//GEN-LAST:event_deleteTugasButtonActionPerformed
 
     private void updateTugasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTugasButtonActionPerformed
         try {
+            Database.connect();
             int row = dataTable.getSelectedRow();
             if (row >= 0) {
                 DefaultTableModel model = (DefaultTableModel) dataTable.getModel();
                 String idPenugasan = model.getValueAt(row, 0).toString();
                 String kodeMatakuliah = model.getValueAt(row, 4).toString();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String deadline = dateFormat.format(dateChooser.getDate());
 
-                PenugasanController.deleteTugasButton(idPenugasan, null, null, null, kodeMatakuliah);
-                table();
-                model.removeRow(row);
+                if (dateChooser.getDate() == null) {
+                    JOptionPane.showMessageDialog(null, "Tolong isi semuanya!");
+                } else {
+                    Date date = new Date();
+                    String dateNow = dateFormat.format(date);
+                    Date date1 = dateFormat.parse(dateNow);
+                    Date date2 = dateFormat.parse(deadline);
+                    if (date2.compareTo(date1) < 0) {
+                        JOptionPane.showMessageDialog(null, "Deadline tidak boleh kurang dari hari ini!");
+                    } else {
+                        String titleTugas = assignment.getText();
+                        String description = deskripsiField.getText();
+
+                        if (deadline.isEmpty() || titleTugas.isEmpty() || description.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Tolong isi semuanya!");
+                        } else {
+                            PenugasanController.updateTugasButton(idPenugasan, deadline, titleTugas, description, kodeMatakuliah);
+
+                            model.setValueAt(deadline, row, 1);
+                            model.setValueAt(titleTugas, row, 2);
+                            model.setValueAt(description, row, 3);
+                            Database.disconnect();
+                        }
+                    }
+                }
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-            JOptionPane.showMessageDialog(null, "Pilih tugas yang ingin dihapus!.");
+            JOptionPane.showMessageDialog(null, "Pilih tugas yang ingin diubah!");
+            Database.disconnect();
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "An error occurred: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan: " + ex.getMessage());
+            Database.disconnect();
         }
     }//GEN-LAST:event_updateTugasButtonActionPerformed
+
+    private void searchTugasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTugasButtonActionPerformed
+        String search = searchField.getText();
+        try {
+            Database.connect();
+            if (search != null) {
+                DefaultTableModel table = new DefaultTableModel();
+                table.addColumn("ID Penugasan");
+                table.addColumn("Deadline");
+                table.addColumn("Title");
+                table.addColumn("Deskripsi");
+                table.addColumn("Kode Mata Kuliah");
+
+                try {
+                    Statement statement = (Statement) Database.connect().createStatement();
+                    ResultSet resulset = statement.executeQuery("SELECT * FROM penugasan WHERE id_tugas = '" + search + "'");
+
+                    while (resulset.next()) {
+                        table.addRow(new Object[]{
+                            resulset.getString("id_tugas"),
+                            resulset.getString("deadline"),
+                            resulset.getString("title"),
+                            resulset.getString("deskripsi"),
+                            resulset.getString("matakuliah_kode_matakuliah")
+                        });
+                        dataTable.setModel(table);
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Koneksi gagal" + e.getMessage());
+                    Database.disconnect();
+        }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Koneksi gagal" + e.getMessage());
+            Database.disconnect();
+        }
+    }//GEN-LAST:event_searchTugasButtonActionPerformed
+
+    private void showTugasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTugasButtonActionPerformed
+       table();
+       Database.disconnect();
+    }//GEN-LAST:event_showTugasButtonActionPerformed
+
+    private void searchFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusGained
+        if (searchField.getText().equals("Masukkan ID Penugasan")) {
+            searchField.setText("");
+            searchField.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_searchFieldFocusGained
+
+    private void searchFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusLost
+        if (searchField.getText().isEmpty()){
+            searchField.setText("Masukkan ID Penugasan");
+            searchField.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_searchFieldFocusLost
+
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+
+    }//GEN-LAST:event_searchFieldActionPerformed
 
     /*
      * @param args the command line arguments
@@ -476,6 +623,9 @@ public final class Penugasan extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> matakuliah;
     private javax.swing.JLabel matakuliahName;
     private javax.swing.JLabel namaTugasName;
+    private javax.swing.JTextField searchField;
+    private javax.swing.JButton searchTugasButton;
+    private javax.swing.JButton showTugasButton;
     private javax.swing.JLabel titleDashboard;
     private javax.swing.JButton updateTugasButton;
     // End of variables declaration//GEN-END:variables
