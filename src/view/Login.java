@@ -65,7 +65,17 @@ public final class Login extends javax.swing.JFrame {
         });
         getContentPane().add(idBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 200, 30));
 
+        passwordField.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        passwordField.setText("password");
         passwordField.setBorder(null);
+        passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFieldFocusLost(evt);
+            }
+        });
         getContentPane().add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, 200, 30));
 
         loginButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -101,11 +111,24 @@ public final class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_idBoxFocusLost
 
+    private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
+        if (passwordField.getText().equals("password")) {
+            passwordField.setText("");
+        }
+    }//GEN-LAST:event_passwordFieldFocusGained
+
+    private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
+        if (passwordField.getText().isEmpty()){
+            passwordField.setText("password");
+        }
+    }//GEN-LAST:event_passwordFieldFocusLost
+
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {
         String id = idBox.getText();
         String password = passwordField.getText();
-        LoginController.loginButton(id, password);
-        this.dispose();
+        if (LoginController.loginButton(id, password) == true){
+            this.dispose();
+        }
     }
                                         
 

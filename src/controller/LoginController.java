@@ -24,7 +24,6 @@ public class LoginController {
     public static boolean loginButton(String id, String password){
         try {
             Database.connect();
-
             if (id.equals("Type your NIM / NIP") || password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill all the fields!");
             } else {
@@ -40,8 +39,10 @@ public class LoginController {
                             dashboardMahasiswa.setDefaultCloseOperation(MenuMahasiswa.EXIT_ON_CLOSE);
                             String name = UserSession.getInstance().getUserName();
                             JOptionPane.showMessageDialog(null, "Welcome back " + name);
+                            return true;
                         } else {
                             JOptionPane.showMessageDialog(null, "Login gagal!");
+                            return false;
                         }
                     }
                     case '1' -> {
@@ -55,8 +56,10 @@ public class LoginController {
                             dashboardDosen.setDefaultCloseOperation(MenuDosen.EXIT_ON_CLOSE);
                             String name = UserSession.getInstance().getUserName();
                             JOptionPane.showMessageDialog(null, "Welcome back " + name);
+                            return true;
                         } else {
                             JOptionPane.showMessageDialog(null, "Login gagal!");
+                            return false;
                         }
                     }
                     default -> JOptionPane.showMessageDialog(null, "Invalid ID!");

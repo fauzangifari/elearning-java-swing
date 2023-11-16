@@ -123,6 +123,7 @@ public class MenuMahasiswa extends javax.swing.JFrame {
         backMenuButton = new javax.swing.JLabel();
         matakuliahChoose = new javax.swing.JComboBox<>();
         refreshButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -230,6 +231,14 @@ public class MenuMahasiswa extends javax.swing.JFrame {
         });
         getContentPane().add(refreshButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, 90, 30));
 
+        closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/closeButton.png"))); // NOI18N
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeButtonMouseClicked(evt);
+            }
+        });
+        getContentPane().add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, -1, -1));
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/dashboardForm.png"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 700));
 
@@ -312,6 +321,10 @@ public class MenuMahasiswa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelMouseClicked
 
+    private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_closeButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -362,6 +375,7 @@ public class MenuMahasiswa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backMenuButton;
     private javax.swing.JLabel background;
+    private javax.swing.JLabel closeButton;
     private javax.swing.JTextField fileTugasField;
     private javax.swing.JButton fileUpload;
     private javax.swing.JTextField idTugasField;

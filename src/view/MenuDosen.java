@@ -29,6 +29,7 @@ public final class MenuDosen extends javax.swing.JFrame {
         penugasanButton = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        closeButton = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,6 +68,14 @@ public final class MenuDosen extends javax.swing.JFrame {
         jLabel1.setText("Lihat Tugas Mahasiswa");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 440, -1, -1));
 
+        closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/closeButton.png"))); // NOI18N
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeButtonMouseClicked(evt);
+            }
+        });
+        getContentPane().add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, -1, -1));
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/dashboardForm.png"))); // NOI18N
         background.setText("jLabel1");
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, -1));
@@ -101,6 +110,10 @@ public final class MenuDosen extends javax.swing.JFrame {
         pengumpulanTugas.setDefaultCloseOperation(PengumpulanTugas.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_pengumpulanTugasButtonMouseClicked
+
+    private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_closeButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -140,6 +153,7 @@ public final class MenuDosen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backMenuButton;
     private javax.swing.JLabel background;
+    private javax.swing.JLabel closeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel pengumpulanTugasButton;
